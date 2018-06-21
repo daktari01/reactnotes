@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import Note from './Note/Note';
+import NoteForm from './NoteForm/NoteForm'
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+
+    // We're goin to setup the React state of our component
+    this.state = {
+      notes: [
+        {id: 1, noteContent: "Note 1 here"},
+        {id: 2, noteContent: "Note 2 here"}
+      ],
+    }
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="notesWrapper">
+        <div className="notesHeader">
+          <div className="heading">React To Do List</div>
+        </div>
+        <div className="notesBody">
+          {
+            this.state.notes.map((note) => {
+              return(
+                <Note noteContent={note.noteContent} and noteId={note.id} key={note.id} />
+              )
+            })
+          }
+        </div>
+        <div className="notesFooter">
+          <NoteForm />
+        </div>
       </div>
     );
   }
